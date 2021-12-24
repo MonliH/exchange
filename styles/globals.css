@@ -1,9 +1,8 @@
 html,
-body {
+body, #__next {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  height: 100%;
 }
 
 a {
@@ -13,4 +12,13 @@ a {
 
 * {
   box-sizing: border-box;
+}
+
+.grey-filter {
+  filter: invert(69%) sepia(1%) saturate(431%) hue-rotate(115deg) brightness(85%) contrast(93%);
+}
+
+.small-hourglass {
+  width: 18px;
+  height: 21px;
 }
