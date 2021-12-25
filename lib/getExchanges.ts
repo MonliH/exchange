@@ -9,7 +9,6 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { ExchangeType, ExchangeInfo } from "lib/exchange";
-import Firebase from "./firebase";
 
 export default async function getCards(): Promise<
   (ExchangeInfo & { key: string })[]

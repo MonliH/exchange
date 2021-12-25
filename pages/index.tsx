@@ -14,10 +14,16 @@ import { useEffect, useState } from "react";
 
 function Home() {
   const [exchanges, setExchanges] = useState(null);
+  const [requests, setRequests] = useState(null);
   useEffect(() => {
     if (exchanges === null) {
       getExchanges().then((es) => {
         setExchanges(es);
+      });
+    }
+    if (requests === null) {
+      getRequests().then((es) => {
+        setRequests(es);
       });
     }
   }, []);
@@ -43,10 +49,10 @@ function Home() {
           Requests
         </Heading>
         <Exchanges
-          cards={getRequests()}
+          cards={requests}
           padding={53}
           Component={ExRequestDisplay}
-          componentDims={[CARD_WIDTH, 250]}
+          componentDims={[CARD_WIDTH, 190]}
         />
       </Box>
     </Box>

@@ -62,7 +62,7 @@ export default function Exchanges<T>({
         }}
       >
         <Flex flexDirection="row" sx={{ gap: `${CARD_GAP}px` }}>
-          {cards.map((card) =>
+          {cards.map((card, idx) =>
             card ? (
               <Component info={card} key={card.key} />
             ) : (
@@ -71,6 +71,7 @@ export default function Exchanges<T>({
                 height={componentDims[1]}
                 flexShrink={0}
                 borderRadius={10}
+                key={idx}
               />
             )
           )}

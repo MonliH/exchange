@@ -13,7 +13,13 @@ import Firebase from "lib/firebase";
 import { useState } from "react";
 import GoBack from "./GoBack";
 
-export default function SignIn() {
+export default function SignIn({
+  text = "You must sign in to continue. Please make an account with Google below.",
+  onSignIn,
+}: {
+  text?: string;
+  onSignIn?: () => void;
+}) {
   const [error, setError] = useState<null | FirebaseError>(null);
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -26,9 +32,14 @@ export default function SignIn() {
         setDoc(doc(getFirestore(Firebase.getApp()), "users", user.uid), {
           pfp: user.photoURL,
           name: user.displayName,
-        }).catch((e) => setError(e));
+        })
+          .catch((e) => setError(e))
+          .then(() => {
+            onSignIn();
+          });
       });
   };
+
   return (
     <Flex
       width="100%"
@@ -40,10 +51,7 @@ export default function SignIn() {
     >
       <Box p="5" bg="gray.100" borderRadius={4} maxWidth="400px">
         <Heading mb="2">Sign in</Heading>
-        <Text mb="5">
-          You must sign in to continue. Please make an account with Google
-          below.
-        </Text>
+        <Text mb="5">{text}</Text>
         <Flex>
           <GoBack />
           <Button

@@ -19,6 +19,9 @@ import ExchangePage from "components/CreateContent";
 import GoBack from "components/GoBack";
 import withAuth from "lib/auth";
 import withNoSsr from "components/NoSsr";
+import { toast } from "react-toastify";
+import { addDoc, collection, getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 function Description() {
   return (
@@ -43,7 +46,30 @@ function CreateRequest() {
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const description = e.target[0].value;
-    console.log({ description, location, sliderValue });
+    let l: null | string = null;
+    if (location.indexOf("p") > -1) {
+      l = (e.target as any).elements.location.value as string;
+    }
+    const newDoc = {
+      description: "I want " + description,
+      location: l,
+      time: sliderValue,
+      remote: location.indexOf("r") > -1,
+      likes: 0,
+      authorUid: getAuth().currentUser.uid,
+    };
+    console.log(newDoc);
+    (async () => {
+      const requests = collection(getFirestore(), "requests");
+      await addDoc(requests, newDoc);
+      toast.success("Added new request.", {
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    })();
   };
 
   return (
@@ -87,4 +113,4 @@ function CreateRequest() {
   );
 }
 
-export default withNoSsr(withHeader(withAuth({}, CreateRequest)));
+export default withNoSsr(withHeader(withAuth(CreateRequest)));

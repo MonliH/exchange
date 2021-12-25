@@ -49,10 +49,9 @@ export function AuthUserProvider({ children }) {
 
 export const useAuth = () => useContext(authUserContext);
 
-export default function withAuth<P extends object>(
-  props: P,
-  Component: React.ComponentType<P>
-): React.ComponentType<P> {
+export default function withAuth(
+  Component: React.ComponentType<{}>
+): React.ComponentType<{}> {
   const WithAuth = () => {
     const { authUser, loading } = useAuth();
     return (
@@ -66,7 +65,7 @@ export default function withAuth<P extends object>(
                 <SignIn />
               </Box>
             )}
-            <Component {...props} />
+            <Component />
           </Box>
         )}
       </Flex>

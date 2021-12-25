@@ -1,6 +1,45 @@
+import {
+  collection,
+  query,
+  doc,
+  getDoc,
+  getDocs,
+  getFirestore,
+  limit,
+  orderBy,
+} from "firebase/firestore";
 import { ExchangeType, ExRequest } from "lib/exchange";
 
-export default function getRequests(): (ExRequest & { key: string })[] {
+export default async function getRequests(): Promise<
+  (ExRequest & { key: string })[]
+> {
+  const dbRef = collection(getFirestore(), "requests");
+  const q = query(dbRef, orderBy("likes"), limit(10));
+  const snapshot = await getDocs(q);
+  const results: Promise<ExRequest & { key: string }>[] = [];
+
+  snapshot.forEach((d) => {
+    const { description, time, likes, authorUid, location, remote } =
+      d.data() as any;
+    results.push(
+      (async () => {
+        const docQ = doc(getFirestore(), "users", authorUid);
+        const userDoc = await getDoc(docQ);
+        const user = userDoc.data();
+        return {
+          description,
+          time,
+          likes,
+          place: { location, remote },
+          author: { pfp: user.pfp, name: user.name, id: authorUid },
+          key: d.id,
+        } as ExRequest & { key: string };
+      })()
+    );
+  });
+
+  return Promise.all(results);
+
   return [
     {
       description: "I want to learn biology",

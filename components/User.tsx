@@ -1,5 +1,6 @@
 import { Circle, Flex, Text } from "@chakra-ui/react";
-import { Author, ExchangeInfo } from "lib/exchange";
+import { Author } from "lib/exchange";
+import NextLink from "next/link";
 
 export function Profile({
   author,
@@ -45,11 +46,13 @@ export function Profile({
 export default function User({ author: author }: { author: Author }) {
   const fullName = author.name;
   return (
-    <Flex flexDirection="row">
-      <Profile author={author} />
-      <Text ml="5px" mt="2px" fontWeight="thin">
-        {fullName}
-      </Text>
-    </Flex>
+    <NextLink href={`/user/${author.id}`} passHref>
+      <Flex flexDirection="row" as="a">
+        <Profile author={author} />
+        <Text ml="5px" mt="2px" fontWeight="thin">
+          {fullName}
+        </Text>
+      </Flex>
+    </NextLink>
   );
 }

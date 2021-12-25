@@ -6,6 +6,8 @@ import {
   Spacer,
   Text,
   CircularProgress,
+  MenuDivider,
+  MenuGroup,
 } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
@@ -106,9 +108,13 @@ export function Header({}: WithHeaderProps) {
                 />
               </MenuButton>
               <MenuList zIndex={11}>
-                {/* <MenuItem onClick={signOut}>
-                  <span>Sign In</span>
-                </MenuItem> */}
+                <MenuGroup title="Demo Account (Limited)">
+                  <NextLink href="sign-in" passHref>
+                    <MenuItem as="a">
+                      <span>Sign In</span>
+                    </MenuItem>
+                  </NextLink>
+                </MenuGroup>
               </MenuList>
             </Menu>
           )}

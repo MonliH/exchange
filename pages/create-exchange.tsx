@@ -55,7 +55,7 @@ function CreateExchange() {
       l = (e.target as any).elements.location.value as string;
     }
     const newDoc = {
-      description,
+      description: "I will " + description,
       location: l,
       type: category,
       time: sliderValue,
@@ -63,7 +63,6 @@ function CreateExchange() {
       likes: 0,
       authorUid: getAuth().currentUser.uid,
     };
-    console.log(newDoc);
     (async () => {
       const exchanges = collection(getFirestore(), "exchanges");
       await addDoc(exchanges, newDoc);
@@ -150,4 +149,4 @@ function CreateExchange() {
   );
 }
 
-export default withNoSsr(withHeader(withAuth({}, CreateExchange)));
+export default withNoSsr(withHeader(withAuth(CreateExchange)));
