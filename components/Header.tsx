@@ -33,7 +33,7 @@ export function Header({}: WithHeaderProps) {
         <span style={{ fontSize: 40 }}>E</span>xchange
       </Heading>
       <Spacer />
-      <Menu>
+      <Menu isLazy>
         <MenuButton
           rightIcon={<Plus size={20} style={{ marginTop: "1px" }} />}
           as={Button}

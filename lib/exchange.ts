@@ -30,6 +30,8 @@ import laptop from "public/images/laptop.png";
 import calculator from "public/images/calculator.png";
 import language from "public/images/language.png";
 import design from "public/images/design.png";
+import globe from "public/images/geography.png";
+import service from "public/images/human.png";
 
 export const TY_IMG_MAP = {
   [ExchangeType.Music]: music,
@@ -37,6 +39,8 @@ export const TY_IMG_MAP = {
   [ExchangeType.Math]: calculator,
   [ExchangeType.Language]: language,
   [ExchangeType.Design]: design,
+  [ExchangeType.Social_Studies]: globe,
+  [ExchangeType.Service]: service,
 };
 
 export interface Place {
