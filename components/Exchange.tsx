@@ -5,21 +5,27 @@ import { Heart } from "react-feather";
 import Hg from "./Hourglass";
 import User from "./User";
 import Location from "./Location";
-import { CardInfo, getCardColor, getCategoryName, TY_IMG_MAP } from "lib/card";
+import {
+  ExchangeInfo,
+  ExRequest,
+  getCardColor,
+  getCategoryName,
+  TY_IMG_MAP,
+} from "lib/exchange";
 
 export const CARD_WIDTH = 341;
 export const CARD_HEIGHT = 438;
 
-export default function Card({ info }: { info: CardInfo }) {
+export default function ExchangeCard({ info }: { info: ExchangeInfo }) {
   return (
     <Flex
       width={CARD_WIDTH}
       height={CARD_HEIGHT}
       flexShrink="0"
-      flexDirection={"column"}
+      flexDirection="column"
       borderWidth={1}
       borderRadius={10}
-      borderColor={"#BDBDBD"}
+      borderColor="#BDBDBD"
       overflow="hidden"
     >
       <Square bg={getCardColor(info.type)} flexGrow={1}>
@@ -37,7 +43,7 @@ export default function Card({ info }: { info: CardInfo }) {
   );
 }
 
-function CardInfoDisplay({ info }: { info: CardInfo }) {
+function CardInfoDisplay({ info }: { info: ExchangeInfo }) {
   return (
     <Flex p={18} flexDirection="column">
       <Flex alignItems="center" mb="10px">
@@ -62,9 +68,22 @@ function CardInfoDisplay({ info }: { info: CardInfo }) {
         <User name={info.author} />
         <Spacer />
         <Box>
-          <Location remote={info.remote} location={info.location} />
+          <Location place={info.place} />
         </Box>
       </Flex>
     </Flex>
+  );
+}
+
+export function ExRequestDisplay({ info }: { info: ExRequest }) {
+  return (
+    <Box
+      width={CARD_WIDTH}
+      borderRadius={10}
+      borderWidth={1}
+      borderColor="#BDBDBD"
+    >
+      <CardInfoDisplay info={{ ...info, type: null }} />
+    </Box>
   );
 }

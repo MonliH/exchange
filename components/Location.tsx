@@ -1,5 +1,5 @@
 import { Flex, Text } from "@chakra-ui/react";
-import { CardInfo } from "lib/card";
+import { Place } from "lib/exchange";
 
 export function LocationPath(props: any) {
   return (
@@ -40,24 +40,18 @@ export function LocationIcon({
   );
 }
 
-export default function Location({
-  location,
-  remote,
-}: {
-  location: CardInfo["location"];
-  remote: boolean;
-}) {
+export default function Location({ place }: { place: Place }) {
   const locations = [];
-  if (remote) {
+  if (place.remote) {
     locations.push("Remote");
   }
-  if (location !== null) {
-    locations.push(location);
+  if (place.location !== null) {
+    locations.push(place.location);
   }
   return (
     <Flex alignItems="center">
       <LocationIcon width={15} height={19} />
-      <Text ml="3px">{locations.join("/")}</Text>
+      <Text ml="5px">{locations.join("/")}</Text>
     </Flex>
   );
 }

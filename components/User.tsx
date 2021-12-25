@@ -1,7 +1,7 @@
 import { Circle, Flex, Text } from "@chakra-ui/react";
-import { CardInfo } from "lib/card";
+import { ExchangeInfo } from "lib/exchange";
 
-export function Profile({ name }: { name: CardInfo["author"] }) {
+export function Profile({ name }: { name: ExchangeInfo["author"] }) {
   const initials = `${name[0][0]}${name[1][0]}`;
   const fullName = name.join(" ");
   const hue =
@@ -25,8 +25,8 @@ export function Profile({ name }: { name: CardInfo["author"] }) {
   );
 }
 
-export default function User({ name }: { name: CardInfo["author"] }) {
-  const fullName = name.join(" ");
+export default function User({ name }: { name: ExchangeInfo["author"] }) {
+  const fullName = name.slice(0, 2).join(" ");
   return (
     <Flex flexDirection="row">
       <Profile name={name} />
