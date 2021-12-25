@@ -28,6 +28,7 @@ import { HelpCircle } from "react-feather";
 export default function CreateExchange({
   submitForm,
   category,
+  toolTip = "recieve",
   Description,
   setCategory,
   location,
@@ -42,6 +43,7 @@ export default function CreateExchange({
   setSliderValue: Dispatch<SetStateAction<number>>;
   setLocation: Dispatch<SetStateAction<string>>;
   location: string;
+  toolTip?: string;
   submitForm: FormEventHandler<HTMLFormElement>;
   Description: React.ComponentType<{}>;
   buttonText?: string;
@@ -87,7 +89,9 @@ export default function CreateExchange({
           <FormLabel fontSize="18px" fontWeight="light">
             Length
           </FormLabel>
-          <Tooltip label=" How many chronos you wish to receive (1 chronos = 1 hour of service)">
+          <Tooltip
+            label={`How many chronos you wish to ${toolTip} (1 chronos = 1 hour of service)`}
+          >
             <Circle
               bg="gray.300"
               width="21px"

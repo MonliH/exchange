@@ -9,7 +9,7 @@ export default function GoBack() {
   const router = useRouter();
 
   return (
-    <button type="button" onClick={() => router.back()}>
+    <button type="button" onClick={() => router.replace("/")}>
       <Flex>
         <ChevronLeft size={24} color="#838383" />
         <span color="#444444">Go Back</span>

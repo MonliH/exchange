@@ -21,17 +21,19 @@ export function Header({}: WithHeaderProps) {
       position="relative"
       align="center"
     >
-      <Heading
-        fontWeight="normal"
-        mt="-5px"
-        fontFamily="Exchange Sans"
-        ml="1px"
-        fontSize={35}
-        cursor="default"
-        userSelect="none"
-      >
-        <span style={{ fontSize: 40 }}>E</span>xchange
-      </Heading>
+      <NextLink href="/" passHref>
+        <Heading
+          fontWeight="normal"
+          mt="-5px"
+          fontFamily="Exchange Sans"
+          ml="1px"
+          fontSize={35}
+          cursor="pointer"
+          userSelect="none"
+        >
+          <span style={{ fontSize: 40 }}>E</span>xchange
+        </Heading>
+      </NextLink>
       <Spacer />
       <Menu isLazy>
         <MenuButton

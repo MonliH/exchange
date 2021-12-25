@@ -72,6 +72,7 @@ function CreateRequest() {
         </Flex>
         <ExchangePage
           buttonText="Request!"
+          toolTip="give"
           Description={Description}
           sliderValue={sliderValue}
           setSliderValue={setSliderValue}

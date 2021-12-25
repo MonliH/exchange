@@ -63,13 +63,13 @@ export default function getRequests(): (ExRequest & { key: string })[] {
       },
     },
     {
-      description: "I want to learn psychology",
-      time: 1.5,
-      likes: 5,
+      description: "I want to learn to sing",
+      time: 0.75,
+      likes: 2,
       author: ["Tom", "Thomas", 14],
       place: {
-        remote: true,
-        location: null,
+        remote: false,
+        location: "Toronto",
       },
     },
   ].map(
