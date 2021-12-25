@@ -8,7 +8,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
       likes: 3,
       author: ["David", "Li", 1],
       place: {
-        location: "Kingston",
+        location: "Toronto",
         remote: false,
       },
       type: ExchangeType.Music,
@@ -41,7 +41,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
       likes: 5,
       author: ["Alice", "Smith", 4],
       place: {
-        location: "Kingston",
+        location: "Toronto",
         remote: false,
       },
       type: ExchangeType.Math,
@@ -56,6 +56,28 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
         remote: false,
       },
       type: ExchangeType.Language,
+    },
+    {
+      description: "I will mow your lawn",
+      time: 1,
+      likes: 5,
+      author: ["John", "Ford", 6],
+      place: {
+        location: "Toronto",
+        remote: false,
+      },
+      type: ExchangeType.Service,
+    },
+    {
+      description: "I will teach you geography",
+      time: 1.5,
+      likes: 2,
+      author: ["Mandy", "Miller", 7],
+      place: {
+        location: null,
+        remote: true,
+      },
+      type: ExchangeType.Social_Studies,
     },
   ].map(
     (old) =>

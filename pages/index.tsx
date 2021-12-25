@@ -3,7 +3,7 @@ import Exchanges from "components/Exchanges";
 
 import withHeader from "components/Header";
 import { Box, Heading } from "@chakra-ui/react";
-import getCards from "lib/getCards";
+import getExchanges from "lib/getExchanges";
 import ExchangeCard, { ExRequestDisplay } from "components/Exchange";
 import getRequests from "lib/getRequests";
 
@@ -18,7 +18,11 @@ function Home() {
         <Heading fontWeight="normal" mb="42px" ml="1px">
           Exchanges for you
         </Heading>
-        <Exchanges cards={getCards()} padding={53} Component={ExchangeCard} />
+        <Exchanges
+          cards={getExchanges()}
+          padding={53}
+          Component={ExchangeCard}
+        />
       </Box>
       <Box>
         <Heading

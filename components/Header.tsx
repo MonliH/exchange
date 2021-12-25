@@ -49,7 +49,7 @@ export function Header({}: WithHeaderProps) {
               <span>Exchange</span>
             </MenuItem>
           </NextLink>
-          <NextLink href="/create-requeset" passHref>
+          <NextLink href="/create-request" passHref>
             <MenuItem>
               <span>Request</span>
             </MenuItem>
