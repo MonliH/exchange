@@ -83,7 +83,11 @@ export function Header({}: WithHeaderProps) {
             <Menu isLazy>
               <MenuButton>
                 <Profile
-                  author={{ name: user.displayName, id: user.uid }}
+                  author={{
+                    name: user.displayName,
+                    id: user.uid,
+                    pfp: user.photoURL,
+                  }}
                   size={45}
                 />
               </MenuButton>

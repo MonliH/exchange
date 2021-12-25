@@ -22,6 +22,9 @@ import GoBack from "components/GoBack";
 import Image from "next/image";
 import withAuth from "lib/auth";
 import withNoSsr from "components/NoSsr";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { toast } from "react-toastify";
 
 function Description() {
   return (
@@ -31,9 +34,9 @@ function Description() {
       </FormLabel>
       <InputGroup size="lg" name="description">
         <InputLeftElement pointerEvents="none" ml="15px" width="fit-content">
-          <Text fontWeight="bold">I want</Text>
+          <Text fontWeight="bold">I will</Text>
         </InputLeftElement>
-        <Input placeholder="to do/learn something..." paddingLeft="75px" />
+        <Input placeholder="do something awesome" paddingLeft="61px" />
       </InputGroup>
     </FormControl>
   );
@@ -47,7 +50,31 @@ function CreateExchange() {
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const description = e.target[0].value;
-    console.log({ description, location, category, sliderValue });
+    let l: null | string = null;
+    if (location.indexOf("p") > -1) {
+      l = (e.target as any).elements.location.value as string;
+    }
+    const newDoc = {
+      description,
+      location: l,
+      type: category,
+      time: sliderValue,
+      remote: location.indexOf("r") > -1,
+      likes: 0,
+      authorUid: getAuth().currentUser.uid,
+    };
+    console.log(newDoc);
+    (async () => {
+      const exchanges = collection(getFirestore(), "exchanges");
+      await addDoc(exchanges, newDoc);
+      toast.success("Added new exchange.", {
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+      });
+    })();
   };
 
   return (

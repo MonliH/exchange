@@ -145,7 +145,7 @@ export default function CreateExchange({
           <option value="p">In Person</option>
         </Select>
         {location && location.indexOf("p") > -1 ? (
-          <Input placeholder="City Name" size="lg" mt="10px" />
+          <Input placeholder="City Name" size="lg" mt="10px" name="location" />
         ) : null}
       </FormControl>
       <Button

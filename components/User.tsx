@@ -19,7 +19,15 @@ export function Profile({
       .map((x) => x.charCodeAt(0))
       .reduce((a, b) => a + b) % 360;
   const color = `hsl(${hue}, 100%, 84%)`;
-  return (
+  return author.pfp ? (
+    <Circle
+      bg={color}
+      w={`${size}px`}
+      h={`${size}px`}
+      bgImage={author.pfp}
+      bgSize="cover"
+    />
+  ) : (
     <Circle bg={color} w={`${size}px`} h={`${size}px`}>
       <Text
         fontWeight="bold"

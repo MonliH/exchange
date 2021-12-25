@@ -1,11 +1,11 @@
 export enum ExchangeType {
-  Music,
-  Programming,
-  Math,
-  Language,
-  Design,
-  Social_Studies,
-  Service,
+  Music = 0,
+  Programming = 1,
+  Math = 2,
+  Language = 3,
+  Design = 4,
+  Social_Studies = 5,
+  Service = 6,
 }
 
 export function getCardColor(ty: ExchangeType): string {

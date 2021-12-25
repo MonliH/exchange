@@ -1,7 +1,7 @@
-import { Box, Flex, IconButton } from "@chakra-ui/react";
+import { Box, Flex, IconButton, Skeleton } from "@chakra-ui/react";
 import { ChevronRight, ChevronLeft } from "react-feather";
 
-import { CARD_WIDTH } from "components/Exchange";
+import { CARD_HEIGHT, CARD_WIDTH } from "components/Exchange";
 import { useSpring, animated } from "react-spring";
 import React from "react";
 import { clamp } from "lib/util";
@@ -13,12 +13,17 @@ const SLIDE_OFFSET = CARD_GAP + CARD_WIDTH;
 export default function Exchanges<T>({
   cards,
   padding,
+  componentDims,
   Component,
 }: {
-  cards: (T & { key: string })[];
+  cards: (T & { key: string })[] | null;
   padding: number;
   Component: React.ComponentType<{ info: T }>;
+  componentDims: [number, number];
 }) {
+  if (!cards) {
+    cards = Array(4).fill(null);
+  }
   const [styles, api] = useSpring(() => ({
     x: 0,
   }));
@@ -57,9 +62,18 @@ export default function Exchanges<T>({
         }}
       >
         <Flex flexDirection="row" sx={{ gap: `${CARD_GAP}px` }}>
-          {cards.map((card) => (
-            <Component info={card} key={card.key} />
-          ))}
+          {cards.map((card) =>
+            card ? (
+              <Component info={card} key={card.key} />
+            ) : (
+              <Skeleton
+                width={componentDims[0]}
+                height={componentDims[1]}
+                flexShrink={0}
+                borderRadius={10}
+              />
+            )
+          )}
         </Flex>
       </animated.div>
       {lowBound >= 0 ? null : (

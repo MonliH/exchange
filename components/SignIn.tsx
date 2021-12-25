@@ -1,6 +1,14 @@
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { FirebaseError } from "firebase/app";
-import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { getDatabase } from "firebase/database";
+import { doc, getFirestore, setDoc } from "firebase/firestore";
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  User,
+  UserCredential,
+} from "firebase/auth";
 import Firebase from "lib/firebase";
 import { useState } from "react";
 import GoBack from "./GoBack";
@@ -9,9 +17,17 @@ export default function SignIn() {
   const [error, setError] = useState<null | FirebaseError>(null);
   const signInWithGoogle = () => {
     const provider = new GoogleAuthProvider();
-    signInWithPopup(getAuth(Firebase.getApp()), provider).catch((e) => {
-      setError(e);
-    });
+    signInWithPopup(getAuth(Firebase.getApp()), provider)
+      .catch((e) => {
+        setError(e);
+      })
+      .then((res) => {
+        const user: User = (res as UserCredential).user;
+        setDoc(doc(getFirestore(Firebase.getApp()), "users", user.uid), {
+          pfp: user.photoURL,
+          name: user.displayName,
+        }).catch((e) => setError(e));
+      });
   };
   return (
     <Flex

@@ -4,10 +4,23 @@ import Exchanges from "components/Exchanges";
 import withHeader from "components/Header";
 import { Box, Heading } from "@chakra-ui/react";
 import getExchanges from "lib/getExchanges";
-import ExchangeCard, { ExRequestDisplay } from "components/Exchange";
+import ExchangeCard, {
+  CARD_HEIGHT,
+  CARD_WIDTH,
+  ExRequestDisplay,
+} from "components/Exchange";
 import getRequests from "lib/getRequests";
+import { useEffect, useState } from "react";
 
 function Home() {
+  const [exchanges, setExchanges] = useState(null);
+  useEffect(() => {
+    if (exchanges === null) {
+      getExchanges().then((es) => {
+        setExchanges(es);
+      });
+    }
+  }, []);
   return (
     <Box p="53px" pr="0px" pt="35px">
       <Head>
@@ -19,24 +32,21 @@ function Home() {
           Exchanges for you
         </Heading>
         <Exchanges
-          cards={getExchanges()}
+          cards={exchanges}
           padding={53}
           Component={ExchangeCard}
+          componentDims={[CARD_WIDTH, CARD_HEIGHT]}
         />
       </Box>
       <Box>
-        <Heading
-          fontWeight="normal"
-          mb="42px"
-          fontFamily="Exchange Sans"
-          ml="1px"
-        >
+        <Heading fontWeight="normal" mb="42px" ml="1px">
           Requests
         </Heading>
         <Exchanges
           cards={getRequests()}
           padding={53}
           Component={ExRequestDisplay}
+          componentDims={[CARD_WIDTH, 250]}
         />
       </Box>
     </Box>
