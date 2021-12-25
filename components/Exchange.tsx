@@ -34,7 +34,10 @@ export default function ExchangeCard({ info }: { info: ExchangeInfo }) {
             src={TY_IMG_MAP[info.type]}
             alt={getCategoryName(info.type)}
             layout="fill"
+            sizes={`${CARD_WIDTH * 0.9}px`}
             objectFit="contain"
+            quality={90}
+            placeholder="blur"
           />
         </Box>
       </Square>
@@ -65,7 +68,7 @@ function CardInfoDisplay({ info }: { info: ExchangeInfo }) {
         <Heart size={18} color="#FF3939" />
       </Flex>
       <Flex>
-        <User name={info.author} />
+        <User author={info.author} />
         <Spacer />
         <Box>
           <Location place={info.place} />
@@ -79,6 +82,7 @@ export function ExRequestDisplay({ info }: { info: ExRequest }) {
   return (
     <Box
       width={CARD_WIDTH}
+      flexShrink={0}
       borderRadius={10}
       borderWidth={1}
       borderColor="#BDBDBD"

@@ -1,36 +1,42 @@
-export enum EchangeType {
-  Music = 1,
-  Programming = 2,
-  Math = 3,
-  Language = 4,
-  Design = 5,
-  Social_Studies = 6,
-  Service = 7,
+export enum ExchangeType {
+  Music,
+  Programming,
+  Math,
+  Language,
+  Design,
+  Social_Studies,
+  Service,
 }
 
-export function getCardColor(ty: EchangeType): string {
+export function getCardColor(ty: ExchangeType): string {
   let hue = {
-    [EchangeType.Music]: 0,
-    [EchangeType.Programming]: 120,
-    [EchangeType.Math]: 212,
-    [EchangeType.Language]: 68,
-    [EchangeType.Design]: 306,
-    [EchangeType.Social_Studies]: 29,
-    [EchangeType.Service]: 176,
+    [ExchangeType.Music]: 0,
+    [ExchangeType.Programming]: 120,
+    [ExchangeType.Math]: 212,
+    [ExchangeType.Language]: 68,
+    [ExchangeType.Design]: 306,
+    [ExchangeType.Social_Studies]: 29,
+    [ExchangeType.Service]: 176,
   }[ty];
   return `hsl(${hue}, 100%, 84%)`;
 }
 
-export function getCategoryName(ty: EchangeType): string {
-  return EchangeType[ty];
+export function getCategoryName(ty: ExchangeType): string {
+  return ExchangeType[ty];
 }
 
+import music from "public/images/piano.png";
+import laptop from "public/images/laptop.png";
+import calculator from "public/images/calculator.png";
+import language from "public/images/language.png";
+import design from "public/images/design.png";
+
 export const TY_IMG_MAP = {
-  [EchangeType.Music]: "/images/piano.png",
-  [EchangeType.Programming]: "/images/laptop.png",
-  [EchangeType.Math]: "/images/calculator.png",
-  [EchangeType.Language]: "/images/language.png",
-  [EchangeType.Design]: "/images/design.png",
+  [ExchangeType.Music]: music,
+  [ExchangeType.Programming]: laptop,
+  [ExchangeType.Math]: calculator,
+  [ExchangeType.Language]: language,
+  [ExchangeType.Design]: design,
 };
 
 export interface Place {
@@ -49,5 +55,5 @@ export interface ExRequest {
 }
 
 export interface ExchangeInfo extends ExRequest {
-  type: EchangeType;
+  type: ExchangeType;
 }

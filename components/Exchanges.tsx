@@ -1,10 +1,9 @@
-import { Box, Flex, IconButton, Square } from "@chakra-ui/react";
+import { Box, Flex, IconButton } from "@chakra-ui/react";
 import { ChevronRight, ChevronLeft } from "react-feather";
 
-import ExchangeCard, { CARD_WIDTH } from "components/Exchange";
-import { ExchangeInfo } from "lib/exchange";
+import { CARD_WIDTH } from "components/Exchange";
 import { useSpring, animated } from "react-spring";
-import React, { MouseEventHandler } from "react";
+import React from "react";
 import { clamp } from "lib/util";
 import useWindowSize from "lib/useWindowSize";
 

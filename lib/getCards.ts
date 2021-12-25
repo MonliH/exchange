@@ -1,4 +1,4 @@
-import { EchangeType, ExchangeInfo } from "lib/exchange";
+import { ExchangeType, ExchangeInfo } from "lib/exchange";
 
 export default function getCards(): (ExchangeInfo & { key: string })[] {
   return [
@@ -11,7 +11,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
         location: "Kingston",
         remote: false,
       },
-      type: EchangeType.Music,
+      type: ExchangeType.Music,
     },
     {
       description: "I will design a website",
@@ -22,7 +22,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
         location: null,
         remote: true,
       },
-      type: EchangeType.Design,
+      type: ExchangeType.Design,
     },
     {
       description: "I will teach you Python",
@@ -33,7 +33,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
         location: null,
         remote: true,
       },
-      type: EchangeType.Programming,
+      type: ExchangeType.Programming,
     },
     {
       description: "I will teach you calculus",
@@ -44,18 +44,18 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
         location: "Kingston",
         remote: false,
       },
-      type: EchangeType.Math,
+      type: ExchangeType.Math,
     },
     {
       description: "I will teach you English",
-      time: 0.25,
+      time: 0.5,
       likes: 4,
       author: ["Bob", "Brown", 5],
       place: {
         location: "Toronto",
         remote: false,
       },
-      type: EchangeType.Language,
+      type: ExchangeType.Language,
     },
   ].map(
     (old) =>
