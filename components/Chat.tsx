@@ -95,7 +95,12 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
       <VStack height="100%" p="4" flexGrow={1} align="left">
         <Skeleton isLoaded={focusedUser !== undefined} flexShrink={0}>
           <Box fontWeight="bold">
-            <UserView size={50} user={focusedUser ?? { name: "Jonathan Li" }} />
+            <UserView
+              size={50}
+              user={
+                focusedUser ?? { name: "Jonathan Li", id: "asjdaowidhaoiwf" }
+              }
+            />
           </Box>
         </Skeleton>
         <VStack flexGrow={1}>

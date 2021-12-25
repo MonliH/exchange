@@ -1,5 +1,5 @@
 import { Circle, Flex, Heading, Square, Text } from "@chakra-ui/react";
-import { Author } from "lib/exchange";
+import { User } from "lib/exchange";
 import NextLink from "next/link";
 
 function getProfileColor(name: string): string {
@@ -25,7 +25,7 @@ export function Profile({
   author,
   size = 28,
 }: {
-  author: Author;
+  author: User;
   size?: number;
 }) {
   const color = getProfileColor(author.name);
@@ -53,11 +53,11 @@ export function Profile({
   );
 }
 
-export default function User({
+export default function UserView({
   user,
   size = 28,
 }: {
-  user: Author;
+  user: User;
   size?: number;
 }) {
   const fullName = user.name;
@@ -73,7 +73,7 @@ export default function User({
   );
 }
 
-export function ProfileCard({ user }: { user: Author }) {
+export function ProfileCard({ user }: { user: User }) {
   const initials = getInitials(user.name);
   return (
     <Flex
