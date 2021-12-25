@@ -20,6 +20,8 @@ import { FormEvent, useState } from "react";
 import ExchangePage from "components/CreateContent";
 import GoBack from "components/GoBack";
 import Image from "next/image";
+import withAuth from "lib/auth";
+import withNoSsr from "components/NoSsr";
 
 function Description() {
   return (
@@ -121,4 +123,4 @@ function CreateExchange() {
   );
 }
 
-export default withHeader(CreateExchange);
+export default withNoSsr(withHeader(withAuth({}, CreateExchange)));

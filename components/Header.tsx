@@ -1,4 +1,12 @@
-import { Button, Box, Flex, Heading, Spacer, Text } from "@chakra-ui/react";
+import {
+  Button,
+  Box,
+  Flex,
+  Heading,
+  Spacer,
+  Text,
+  CircularProgress,
+} from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
 import { Plus } from "react-feather";
@@ -6,9 +14,18 @@ import { Plus } from "react-feather";
 import Hg from "components/Hourglass";
 import { Profile } from "components/User";
 import NextLink from "next/link";
+import { useAuthState } from "react-firebase-hooks/auth";
+
+import Firebase from "lib/firebase";
+import { getAuth } from "firebase/auth";
 
 interface WithHeaderProps {}
 export function Header({}: WithHeaderProps) {
+  const [user, loading, error] = useAuthState(getAuth(Firebase.getApp()));
+  const signOut = () => {
+    getAuth(Firebase.getApp()).signOut();
+  };
+
   return (
     <Flex
       maxHeight="73px"
@@ -58,13 +75,47 @@ export function Header({}: WithHeaderProps) {
           </NextLink>
         </MenuList>
       </Menu>
-      <Profile author={["Jonathan", "Li", 0]} size={45} />
-      <Flex direction="row" align="center" ml="20px">
-        <Text fontSize={22} mr="3px" mt="-1px">
-          3
-        </Text>
-        <Hg width={14} height={16} />
-      </Flex>
+      {loading ? (
+        <CircularProgress isIndeterminate />
+      ) : (
+        <>
+          {user ? (
+            <Menu isLazy>
+              <MenuButton>
+                <Profile
+                  author={{ name: user.displayName, id: user.uid }}
+                  size={45}
+                />
+              </MenuButton>
+              <MenuList zIndex={11}>
+                <MenuItem onClick={signOut}>
+                  <span>Sign Out</span>
+                </MenuItem>
+              </MenuList>
+            </Menu>
+          ) : (
+            <Menu isLazy>
+              <MenuButton>
+                <Profile
+                  author={{ name: "Jonathan Li", id: 10231 }}
+                  size={45}
+                />
+              </MenuButton>
+              <MenuList zIndex={11}>
+                {/* <MenuItem onClick={signOut}>
+                  <span>Sign In</span>
+                </MenuItem> */}
+              </MenuList>
+            </Menu>
+          )}
+          <Flex direction="row" align="center" ml="20px">
+            <Text fontSize={22} mr="3px" mt="-1px">
+              3
+            </Text>
+            <Hg width={14} height={16} />
+          </Flex>
+        </>
+      )}
     </Flex>
   );
 }

@@ -8,10 +8,13 @@ export function Profile({
   author: Author;
   size?: number;
 }) {
-  const initials = `${author[0][0]}${author[1][0]}`;
-  const fullName = author.join(" ");
+  const nameParts = author.name.split(" ");
+  const initials = nameParts
+    .map((name) => name[0])
+    .join("")
+    .slice(0, 2);
   const hue =
-    fullName
+    author.name
       .split("")
       .map((x) => x.charCodeAt(0))
       .reduce((a, b) => a + b) % 360;
@@ -32,7 +35,7 @@ export function Profile({
 }
 
 export default function User({ author: author }: { author: Author }) {
-  const fullName = author.slice(0, 2).join(" ");
+  const fullName = author.name;
   return (
     <Flex flexDirection="row">
       <Profile author={author} />

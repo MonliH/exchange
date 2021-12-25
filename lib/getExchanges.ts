@@ -6,7 +6,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
       description: "I will teach you piano",
       time: 0.5,
       likes: 3,
-      author: ["David", "Li", 1],
+      author: { name: "David Li", id: 1 },
       place: {
         location: "Toronto",
         remote: false,
@@ -17,7 +17,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
       description: "I will design a website",
       time: 1,
       likes: 2,
-      author: ["Jayway", "Zhang", 2],
+      author: { name: "Jayway Zhang", id: 2 },
       place: {
         location: null,
         remote: true,
@@ -28,7 +28,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
       description: "I will teach you Python",
       time: 1,
       likes: 1,
-      author: ["John", "Doe", 3],
+      author: { name: "John Doe", id: 3 },
       place: {
         location: null,
         remote: true,
@@ -39,7 +39,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
       description: "I will teach you calculus",
       time: 0.75,
       likes: 5,
-      author: ["Alice", "Smith", 4],
+      author: { name: "Alice Smith", id: 4 },
       place: {
         location: "Toronto",
         remote: false,
@@ -50,7 +50,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
       description: "I will teach you English",
       time: 0.5,
       likes: 4,
-      author: ["Bob", "Brown", 5],
+      author: { name: "Bob Brown", id: 5 },
       place: {
         location: "Toronto",
         remote: false,
@@ -61,7 +61,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
       description: "I will mow your lawn",
       time: 1,
       likes: 5,
-      author: ["John", "Ford", 6],
+      author: { name: "John Ford", id: 6 },
       place: {
         location: "Toronto",
         remote: false,
@@ -72,7 +72,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
       description: "I will teach you geography",
       time: 1.5,
       likes: 2,
-      author: ["Mandy", "Miller", 7],
+      author: { name: "Mandy Miller", id: 7 },
       place: {
         location: null,
         remote: true,
@@ -83,7 +83,7 @@ export default function getCards(): (ExchangeInfo & { key: string })[] {
     (old) =>
       ({
         ...old,
-        key: old.author.join("_") + old.description,
+        key: old.author.id + old.description,
       } as ExchangeInfo & { key: string })
   );
 }

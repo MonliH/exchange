@@ -48,7 +48,7 @@ export interface Place {
   location: null | string;
 }
 
-export type Author = [string, string, number];
+export type Author = { name: string; id: any; pfp?: string };
 
 export interface ExRequest {
   description: string;

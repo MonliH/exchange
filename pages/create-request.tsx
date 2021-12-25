@@ -17,6 +17,8 @@ import withHeader from "components/Header";
 import { FormEvent, useState } from "react";
 import ExchangePage from "components/CreateContent";
 import GoBack from "components/GoBack";
+import withAuth from "lib/auth";
+import withNoSsr from "components/NoSsr";
 
 function Description() {
   return (
@@ -85,4 +87,4 @@ function CreateRequest() {
   );
 }
 
-export default withHeader(CreateRequest);
+export default withNoSsr(withHeader(withAuth({}, CreateRequest)));
