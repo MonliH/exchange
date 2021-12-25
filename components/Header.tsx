@@ -8,6 +8,7 @@ import {
   CircularProgress,
   MenuDivider,
   MenuGroup,
+  SkeletonCircle,
 } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
@@ -78,7 +79,7 @@ export function Header({}: WithHeaderProps) {
         </MenuList>
       </Menu>
       {loading ? (
-        <CircularProgress isIndeterminate />
+        <SkeletonCircle width="45px" height="45px" />
       ) : (
         <>
           {user ? (

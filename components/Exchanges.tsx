@@ -6,18 +6,19 @@ import { useSpring, animated } from "react-spring";
 import React from "react";
 import { clamp } from "lib/util";
 import useWindowSize from "lib/useWindowSize";
+import { WithKey } from "lib/exchange";
 
 const CARD_GAP = 48;
 const SLIDE_OFFSET = CARD_GAP + CARD_WIDTH;
 
 export default function Exchanges<T>({
   cards,
-  padding,
+  mapWidth,
   componentDims,
   Component,
 }: {
-  cards: (T & { key: string })[] | null;
-  padding: number;
+  cards: (T & WithKey)[] | null;
+  mapWidth: (width: number) => number;
   Component: React.ComponentType<{ info: T }>;
   componentDims: [number, number];
 }) {
@@ -27,10 +28,10 @@ export default function Exchanges<T>({
   const [styles, api] = useSpring(() => ({
     x: 0,
   }));
-  const { width } = useWindowSize();
+  const { width: winWidth } = useWindowSize();
+  const width = mapWidth(winWidth) - 20;
   const lowBound =
-    -SLIDE_OFFSET *
-    (cards.length - Math.floor((width - padding) / SLIDE_OFFSET));
+    -SLIDE_OFFSET * (cards.length - Math.floor(width / SLIDE_OFFSET));
   const highBound = 0;
 
   const nextSlide = (process: (x: number, y: number) => number) => () => {
@@ -44,6 +45,7 @@ export default function Exchanges<T>({
       position="relative"
       overflow="hidden"
       paddingLeft={1}
+      width={width}
       _after={{
         content: '""',
         height: "100%",

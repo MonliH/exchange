@@ -61,3 +61,19 @@ export interface ExRequest {
 export interface ExchangeInfo extends ExRequest {
   type: ExchangeType;
 }
+
+export interface FirebaseRequest {
+  authorUid: string;
+  description: string;
+  likes: number;
+  location: string;
+  remote: boolean;
+  time: number;
+}
+export interface FirebaseExchange extends FirebaseRequest {
+  type: number;
+}
+
+export interface WithKey {
+  key: any;
+}

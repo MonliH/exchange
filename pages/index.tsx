@@ -39,7 +39,7 @@ function Home() {
         </Heading>
         <Exchanges
           cards={exchanges}
-          padding={53}
+          mapWidth={(n) => n - 53}
           Component={ExchangeCard}
           componentDims={[CARD_WIDTH, CARD_HEIGHT]}
         />
@@ -50,7 +50,7 @@ function Home() {
         </Heading>
         <Exchanges
           cards={requests}
-          padding={53}
+          mapWidth={(n) => n - 53}
           Component={ExRequestDisplay}
           componentDims={[CARD_WIDTH, 190]}
         />
