@@ -1,10 +1,8 @@
-import { Box, Flex, Heading, Skeleton, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Skeleton, Text } from "@chakra-ui/react";
 import {
   useCollectionOnce,
   useDocumentOnce,
 } from "react-firebase-hooks/firestore";
-import withHeader from "components/Header";
-import withAuth from "lib/auth";
 import { useRouter } from "next/router";
 import {
   collection,
@@ -14,6 +12,10 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import withHeader from "components/Header";
+import NextLink from "next/link";
+
+import withAuth from "lib/auth";
 import { ProfileCard } from "components/User";
 import { ExchangeInfo, ExRequest, WithKey } from "lib/exchange";
 import ExchangeCard, {
@@ -23,6 +25,7 @@ import ExchangeCard, {
 } from "components/Exchange";
 import Exchanges from "components/Exchanges";
 import GoBack from "components/GoBack";
+import { MessageCircle } from "react-feather";
 
 function ProfilePage() {
   const router = useRouter();
@@ -106,7 +109,20 @@ function ProfilePage() {
             )}
           </>
         ) : (
-          <ProfileCard author={user} />
+          <>
+            <ProfileCard user={user} />
+            <NextLink href={`/chat/${user.id}`}>
+              <Button
+                mt="5"
+                as="a"
+                leftIcon={<MessageCircle />}
+                size="lg"
+                colorScheme="blue"
+              >
+                Chat
+              </Button>
+            </NextLink>
+          </>
         )}
       </Box>
       <Box flexGrow={1} ml="50px">

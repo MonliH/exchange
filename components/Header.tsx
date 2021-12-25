@@ -21,6 +21,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 
 import Firebase from "lib/firebase";
 import { getAuth } from "firebase/auth";
+import { useRouter } from "next/router";
 
 interface WithHeaderProps {}
 export function Header({}: WithHeaderProps) {
@@ -28,6 +29,7 @@ export function Header({}: WithHeaderProps) {
   const signOut = () => {
     getAuth(Firebase.getApp()).signOut();
   };
+  const router = useRouter();
 
   return (
     <Flex
@@ -95,6 +97,9 @@ export function Header({}: WithHeaderProps) {
                 />
               </MenuButton>
               <MenuList zIndex={11}>
+                <MenuItem onClick={() => router.replace(`/user/${user.uid}`)}>
+                  <span>View Profile</span>
+                </MenuItem>
                 <MenuItem onClick={signOut}>
                   <span>Sign Out</span>
                 </MenuItem>

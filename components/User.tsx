@@ -53,13 +53,19 @@ export function Profile({
   );
 }
 
-export default function User({ author: author }: { author: Author }) {
-  const fullName = author.name;
+export default function User({
+  user,
+  size = 28,
+}: {
+  user: Author;
+  size?: number;
+}) {
+  const fullName = user.name;
   return (
-    <NextLink href={`/user/${author.id}`} passHref>
-      <Flex flexDirection="row" as="a">
-        <Profile author={author} />
-        <Text ml="5px" mt="2px" fontWeight="thin">
+    <NextLink href={`/user/${user.id}`} passHref>
+      <Flex flexDirection="row" as="a" align="center">
+        <Profile author={user} size={size} />
+        <Text ml="6px" mt="-2px" fontWeight="thin" fontSize={size / 2}>
           {fullName}
         </Text>
       </Flex>
@@ -67,8 +73,8 @@ export default function User({ author: author }: { author: Author }) {
   );
 }
 
-export function ProfileCard({ author }: { author: Author }) {
-  const initials = getInitials(author.name);
+export function ProfileCard({ user }: { user: Author }) {
+  const initials = getInitials(user.name);
   return (
     <Flex
       as="a"
@@ -81,15 +87,15 @@ export function ProfileCard({ author }: { author: Author }) {
       borderColor="#BDBDBD"
       overflow="hidden"
     >
-      {author.pfp ? (
+      {user.pfp ? (
         <Square
           flexGrow={1}
-          bgImage={author.pfp.replace("s96-c", "s400-c")}
+          bgImage={user.pfp.replace("s96-c", "s400-c")}
           bgSize="cover"
         />
       ) : (
         <Square
-          bg={getProfileColor(author.name)}
+          bg={getProfileColor(user.name)}
           flexGrow={1}
           fontWeight="bold"
           fontSize="200px"
@@ -97,7 +103,7 @@ export function ProfileCard({ author }: { author: Author }) {
           {initials}
         </Square>
       )}
-      <Heading m="30">{author.name}</Heading>
+      <Heading m="30">{user.name}</Heading>
     </Flex>
   );
 }

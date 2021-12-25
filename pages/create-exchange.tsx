@@ -25,6 +25,7 @@ import withNoSsr from "components/NoSsr";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { toast } from "react-toastify";
+import Router, { useRouter } from "next/router";
 
 function Description() {
   return (
@@ -46,6 +47,7 @@ function CreateExchange() {
   const [sliderValue, setSliderValue] = useState(1);
   const [location, setLocation] = useState<null | string>(null);
   const [category, setCategory] = useState<undefined | ExchangeType>(undefined);
+  const router = useRouter();
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,6 +75,7 @@ function CreateExchange() {
         draggable: true,
         progress: undefined,
       });
+      router.replace("/");
     })();
   };
 

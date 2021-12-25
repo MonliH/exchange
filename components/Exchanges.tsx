@@ -29,7 +29,7 @@ export default function Exchanges<T>({
     x: 0,
   }));
   const { width: winWidth } = useWindowSize();
-  const width = mapWidth(winWidth) - 20;
+  const width = mapWidth(winWidth);
   const lowBound =
     -SLIDE_OFFSET * (cards.length - Math.floor(width / SLIDE_OFFSET));
   const highBound = 0;

@@ -22,6 +22,7 @@ import withNoSsr from "components/NoSsr";
 import { toast } from "react-toastify";
 import { addDoc, collection, getFirestore } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
+import { useRouter } from "next/router";
 
 function Description() {
   return (
@@ -42,6 +43,7 @@ function Description() {
 function CreateRequest() {
   const [sliderValue, setSliderValue] = useState(1);
   const [location, setLocation] = useState<null | string>(null);
+  const router = useRouter();
 
   const submitForm = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,7 +60,6 @@ function CreateRequest() {
       likes: 0,
       authorUid: getAuth().currentUser.uid,
     };
-    console.log(newDoc);
     (async () => {
       const requests = collection(getFirestore(), "requests");
       await addDoc(requests, newDoc);
@@ -69,6 +70,7 @@ function CreateRequest() {
         draggable: true,
         progress: undefined,
       });
+      router.replace("/");
     })();
   };
 

@@ -68,7 +68,7 @@ function CardInfoDisplay({ info }: { info: ExchangeInfo }) {
         <Heart size={18} color="#FF3939" />
       </Flex>
       <Flex>
-        <User author={info.author} />
+        <User user={info.author} />
         <Spacer />
         <Box>
           <Location place={info.place} />

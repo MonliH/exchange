@@ -35,7 +35,9 @@ export default function SignIn({
         })
           .catch((e) => setError(e))
           .then(() => {
-            onSignIn();
+            if (onSignIn) {
+              onSignIn();
+            }
           });
       });
   };
