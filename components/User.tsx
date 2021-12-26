@@ -1,7 +1,6 @@
 import { Circle, Flex, Heading, Square, Text } from "@chakra-ui/react";
 import { User } from "lib/exchange";
 import NextLink from "next/link";
-import { CSSProperties } from "react";
 
 function getProfileColor(name: string): string {
   const hue =

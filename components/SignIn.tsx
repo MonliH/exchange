@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, HStack, Text } from "@chakra-ui/react";
 import { FirebaseError } from "firebase/app";
 import { getDatabase } from "firebase/database";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
@@ -12,6 +12,8 @@ import {
 import Firebase from "lib/firebase";
 import { useState } from "react";
 import GoBack from "./GoBack";
+
+import GoogleButton from "react-google-button";
 
 export default function SignIn({
   text = "You must sign in to continue. Please make an account with Google below.",
@@ -54,17 +56,10 @@ export default function SignIn({
       <Box p="5" bg="gray.100" borderRadius={4} maxWidth="400px">
         <Heading mb="2">Sign in</Heading>
         <Text mb="5">{text}</Text>
-        <Flex>
+        <HStack spacing={4}>
           <GoBack />
-          <Button
-            size="lg"
-            colorScheme="blue"
-            onClick={signInWithGoogle}
-            ml="5"
-          >
-            Sign In with Google
-          </Button>
-        </Flex>
+          <GoogleButton onClick={signInWithGoogle} type="dark" />
+        </HStack>
         {error && (
           <Text color="red" mt="4">
             An error occured. Please try again.

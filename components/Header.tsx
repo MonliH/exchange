@@ -5,14 +5,13 @@ import {
   Heading,
   Spacer,
   Text,
-  CircularProgress,
-  MenuDivider,
   MenuGroup,
   SkeletonCircle,
+  Circle,
 } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import React from "react";
-import { Plus } from "react-feather";
+import { Plus, User } from "react-feather";
 
 import Hg from "components/Hourglass";
 import { Profile } from "components/User";
@@ -108,10 +107,9 @@ export function Header({}: WithHeaderProps) {
           ) : (
             <Menu isLazy>
               <MenuButton>
-                <Profile
-                  author={{ name: "Jonathan Li", id: 10231 }}
-                  size={45}
-                />
+                <Circle width={45} height={45} bg={"gray.300"}>
+                  <User />
+                </Circle>
               </MenuButton>
               <MenuList zIndex={11}>
                 <MenuGroup title="Demo Account (Limited)">
