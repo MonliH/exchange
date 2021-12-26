@@ -26,6 +26,7 @@ import ExchangeCard, {
 import Exchanges from "components/Exchanges";
 import GoBack from "components/GoBack";
 import { MessageCircle } from "react-feather";
+import withNoSsr from "components/NoSsr";
 
 function ProfilePage() {
   const router = useRouter();
@@ -167,4 +168,4 @@ function ProfilePage() {
   );
 }
 
-export default withHeader(ProfilePage);
+export default withNoSsr(withHeader(ProfilePage));
