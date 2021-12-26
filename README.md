@@ -1,4 +1,4 @@
-# Exchange: Time for everything
+# Σxchange: Time for everything
 
 ![Front Page Screenshot](assets/front_page.png)
 
