@@ -109,7 +109,7 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
           </Box>
         </Skeleton>
         <VStack
-          flexGrow={0}
+          flexGrow={1}
           align="left"
           spacing={4}
           overflow="scroll"

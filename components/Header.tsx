@@ -234,7 +234,7 @@ export function Header({}: WithHeaderProps) {
                 })}
               </MenuGroup>
             ) : (
-              <MenuGroup title="You've got not chats"></MenuGroup>
+              <MenuGroup title="You've got no chats"></MenuGroup>
             )}
           </MenuList>
         </Menu>
