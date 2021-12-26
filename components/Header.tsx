@@ -10,10 +10,21 @@ import {
   SkeletonCircle,
   Circle,
   HStack,
+  InputGroup,
+  InputLeftElement,
+  Input,
+  VStack,
+  InputRightElement,
 } from "@chakra-ui/react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-import React, { useEffect, useState } from "react";
-import { Plus, User as UserIcon, MessageSquare, X } from "react-feather";
+import React, { useEffect, useRef, useState } from "react";
+import {
+  Plus,
+  User as UserIcon,
+  MessageSquare,
+  X,
+  Search,
+} from "react-feather";
 
 import Hg from "components/Hourglass";
 import { Profile } from "components/User";
@@ -36,10 +47,41 @@ import {
 import { useCollection } from "react-firebase-hooks/firestore";
 import { getUserInfo } from "lib/chat";
 import useDeepCompareEffect from "lib/useDeepEffect";
-import { values } from "lodash";
 
 interface WithHeaderProps {}
 type SeenMessage = Message & { authorUser: User };
+
+import algoliasearch from "algoliasearch/lite";
+import {
+  AutoSuggest,
+  Index,
+  SearchBox,
+  InstantSearch,
+  connectAutoComplete,
+} from "react-instantsearch-dom";
+import { useMemoOne } from "@react-spring/shared";
+
+const AutoComplete = connectAutoComplete(
+  ({ hits, currentRefinement, refine }) => (
+    <AutoSuggest
+      suggestions={hits}
+      multiSection={true}
+      onSuggestionsFetchRequested={({ value }) => refine(value)}
+      onSuggestionsClearRequested={() => refine("")}
+      getSuggestionValue={(hit) => hit.description}
+      renderSuggestion={(hit) => (
+        <NextLink href={`/user/${hit.authorUid}`}>{hit.description}</NextLink>
+      )}
+      inputProps={{
+        placeholder: "Search for a category, brand or product",
+        value: currentRefinement,
+        onChange: () => {},
+      }}
+      renderSectionTitle={(section) => section.index}
+      getSectionSuggestions={(section) => section.hits}
+    />
+  )
+);
 
 export function Header({}: WithHeaderProps) {
   const [user, loading] = useAuthState(getAuth(Firebase.getApp()));
@@ -142,6 +184,14 @@ export function Header({}: WithHeaderProps) {
     setToDisplay(newUnreads);
   }, [seen, newMessages]);
 
+  const searchClient = useMemoOne(() => {
+    const searchClient = algoliasearch(
+      "336RIAFDBW",
+      "bfc3b9db4b5e73e997d51f22e07ed2f3"
+    );
+    return searchClient;
+  });
+
   return (
     <Flex
       maxHeight="73px"
@@ -167,6 +217,11 @@ export function Header({}: WithHeaderProps) {
           <span style={{ fontSize: 40 }}>E</span>xchange
         </Heading>
       </NextLink>
+      <InstantSearch indexName="exchanges_search" searchClient={searchClient}>
+        <SearchBox />
+        <Index indexName="exchanges_search" />
+        <AutoComplete />
+      </InstantSearch>
       <Spacer />
       {user && (
         <Menu isLazy onClose={markAsRead} onOpen={() => setOpen(true)}>
