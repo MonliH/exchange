@@ -177,16 +177,18 @@ export function Header({}: WithHeaderProps) {
                 <>
                   <MessageSquare />
 
-                  {newMessages.length > 0 && !open && (
-                    <Circle
-                      position="absolute"
-                      width="6px"
-                      height="6px"
-                      bottom="7px"
-                      right="7px"
-                      backgroundColor="red"
-                    />
-                  )}
+                  {newMessages.length > 0 &&
+                    !open &&
+                    !router.pathname.includes("chat/") && (
+                      <Circle
+                        position="absolute"
+                        width="6px"
+                        height="6px"
+                        bottom="7px"
+                        right="7px"
+                        backgroundColor="red"
+                      />
+                    )}
                 </>
               }
               mr="6"

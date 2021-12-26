@@ -108,7 +108,13 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
             />
           </Box>
         </Skeleton>
-        <VStack flexGrow={1} align="left" spacing={4}>
+        <VStack
+          flexGrow={0}
+          align="left"
+          spacing={4}
+          overflow="scroll"
+          overflowX="hidden"
+        >
           {messages &&
             messages.map((m, idx) => {
               const user = m.author === currentId ? currentUser : focusedUser;
