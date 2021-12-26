@@ -167,4 +167,4 @@ function ProfilePage() {
   );
 }
 
-export default withHeader(withAuth(ProfilePage));
+export default withHeader(ProfilePage);

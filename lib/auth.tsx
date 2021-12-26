@@ -50,7 +50,8 @@ export function AuthUserProvider({ children }) {
 export const useAuth = () => useContext(authUserContext);
 
 export default function withAuth(
-  Component: React.ComponentType<{}>
+  Component: React.ComponentType<{}>,
+  needsAuth: boolean = false
 ): React.ComponentType<{}> {
   const WithAuth = () => {
     const { authUser, loading } = useAuth();
@@ -65,7 +66,7 @@ export default function withAuth(
                 <SignIn />
               </Box>
             )}
-            <Component />
+            {(authUser !== null || !needsAuth) && <Component />}
           </Box>
         )}
       </Flex>
