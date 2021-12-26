@@ -47,7 +47,7 @@ export default function ExchangeCard({ info }: { info: ExchangeInfo }) {
     e.preventDefault();
     if (authUser) {
       sendMessage(
-        e.target.elements.message.value,
+        (e.target as any).elements.message.value,
         getAuth().currentUser.uid,
         info.author.id,
         () => {}
@@ -168,7 +168,7 @@ export function ExRequestDisplay({ info }: { info: ExRequest }) {
     e.preventDefault();
     if (authUser) {
       sendMessage(
-        e.target.elements.message.value,
+        (e.target as any).elements.message.value,
         getAuth().currentUser.uid,
         info.author.id,
         () => {}
