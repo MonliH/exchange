@@ -23,7 +23,7 @@ export default function Exchanges<T>({
   componentDims: [number, number];
 }) {
   if (!cards) {
-    cards = Array(4).fill(null);
+    cards = Array(5).fill(null);
   }
   const [styles, api] = useSpring(() => ({
     x: 0,
