@@ -33,7 +33,7 @@ function Home() {
         <title>Exchange</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Box mb="75px">
+      <Box mb="75px" overflow="hidden">
         <Heading fontWeight="normal" mb="42px" ml="1px">
           Exchanges for you
         </Heading>
@@ -44,7 +44,7 @@ function Home() {
           componentDims={[CARD_WIDTH, CARD_HEIGHT]}
         />
       </Box>
-      <Box>
+      <Box overflow="hidden">
         <Heading fontWeight="normal" mb="42px" ml="1px">
           Requests
         </Heading>

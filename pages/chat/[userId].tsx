@@ -14,9 +14,7 @@ function ProfilePage() {
   const { userId } = router.query;
   const db = getFirestore();
 
-  const [snapshot, loading] = useDocumentOnce(
-    doc(db, "users", userId as string)
-  );
+  const [snapshot] = useDocumentOnce(doc(db, "users", userId as string));
 
   let user = null;
   if (snapshot !== undefined) {

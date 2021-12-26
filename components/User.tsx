@@ -1,6 +1,7 @@
 import { Circle, Flex, Heading, Square, Text } from "@chakra-ui/react";
 import { User } from "lib/exchange";
 import NextLink from "next/link";
+import { CSSProperties } from "react";
 
 function getProfileColor(name: string): string {
   const hue =
@@ -73,37 +74,54 @@ export default function UserView({
   );
 }
 
-export function ProfileCard({ user }: { user: User }) {
+export function LargeProfileImage({
+  user,
+  fontSize,
+  styles = {},
+}: {
+  user: User;
+  fontSize: number;
+  styles?: object;
+}) {
   const initials = getInitials(user.name);
+  return user.pfp ? (
+    <Square
+      flexGrow={1}
+      bgImage={user.pfp.replace("s96-c", "s400-c")}
+      bgSize="cover"
+      width="100%"
+      {...styles}
+    />
+  ) : (
+    <Square
+      bg={getProfileColor(user.name)}
+      flexGrow={1}
+      fontWeight="bold"
+      fontSize={`${fontSize}px`}
+      width="100%"
+      {...styles}
+    >
+      {initials}
+    </Square>
+  );
+}
+
+export function ProfileCard({ user }: { user: User }) {
   return (
     <Flex
-      as="a"
       width={454}
       height={585}
-      flexShrink="0"
-      flexDirection="column"
       borderWidth={1}
       borderRadius={10}
       borderColor="#BDBDBD"
       overflow="hidden"
+      flexShrink="0"
+      flexDirection="column"
     >
-      {user.pfp ? (
-        <Square
-          flexGrow={1}
-          bgImage={user.pfp.replace("s96-c", "s400-c")}
-          bgSize="cover"
-        />
-      ) : (
-        <Square
-          bg={getProfileColor(user.name)}
-          flexGrow={1}
-          fontWeight="bold"
-          fontSize="200px"
-        >
-          {initials}
-        </Square>
-      )}
-      <Heading m="30">{user.name}</Heading>
+      <LargeProfileImage fontSize={200} user={user} />
+      <Heading m="30" flexShrink={0}>
+        {user.name}
+      </Heading>
     </Flex>
   );
 }

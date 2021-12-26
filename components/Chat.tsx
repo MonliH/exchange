@@ -23,6 +23,7 @@ import {
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { Send } from "react-feather";
+import { sendMessage } from "lib/chat";
 
 export interface Message {
   date: Date;
@@ -67,9 +68,8 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
       messages.sort((a, b) => {
         const aDate = a ?? new Date();
         const bDate = b ?? new Date();
-        return aDate - bDate;
+        return (aDate as any) - (bDate as any);
       });
-      console.log(messages);
       setMessages(messages);
     }
   }, [chatQuery1, chatQuery2]);
@@ -77,14 +77,9 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
   const dummy = useRef<HTMLSpanElement>();
 
   const [formValue, setFormValue] = useState("");
-  const sendMessage = async (e: FormEvent<HTMLFormElement>) => {
+  const sendMsg = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    addDoc(chatsCol, {
-      message: formValue,
-      date: serverTimestamp(),
-      author: currentId,
-      to: toUserId,
-    }).then(() => {
+    await sendMessage(formValue, currentId, toUserId, () => {
       setFormValue("");
       dummy.current.scrollIntoView({ behavior: "smooth" });
     });
@@ -134,7 +129,7 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
           <span ref={dummy}></span>
         </VStack>
         <Skeleton isLoaded={focusedUser !== undefined} flexShrink={0}>
-          <form onSubmit={sendMessage}>
+          <form onSubmit={sendMsg}>
             <HStack>
               <Button
                 leftIcon={<Send />}
