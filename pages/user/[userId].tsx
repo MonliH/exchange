@@ -95,7 +95,7 @@ function ProfilePage() {
   const mapWidth = (n: number) => n - 50 - 454 - 50;
 
   return (
-    <Flex p="50px" direction="row">
+    <Flex p="50px" direction="row" overflow="hidden">
       <Box flexShrink={0}>
         {!user ? (
           <>
