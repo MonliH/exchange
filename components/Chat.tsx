@@ -18,8 +18,6 @@ import {
   getFirestore,
   orderBy,
   where,
-  addDoc,
-  serverTimestamp,
 } from "firebase/firestore";
 import { getAuth } from "firebase/auth";
 import { Send } from "react-feather";
@@ -66,8 +64,8 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
           chatQuery2.docs.map((e) => ({ ...e.data(), id: e.id } as Message))
         );
       messages.sort((a, b) => {
-        const aDate = a ?? new Date();
-        const bDate = b ?? new Date();
+        const aDate = a.date ?? new Date();
+        const bDate = b.date ?? new Date();
         return (aDate as any) - (bDate as any);
       });
       setMessages(messages);
@@ -94,7 +92,7 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
 
   return (
     <Flex direction="row" width="100%" p="0" height="100%">
-      <VStack height="100%" p="4" flexGrow={1} align="left">
+      <VStack height="100%" p="4" flexGrow={1} align="left" maxHeight="100%">
         <Skeleton isLoaded={focusedUser !== undefined} flexShrink={0}>
           <Box
             fontWeight="bold"

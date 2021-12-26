@@ -9,6 +9,7 @@ import {
   getDocs,
 } from "firebase/firestore";
 import { WithKey, ExchangeInfo } from "lib/exchange";
+import { getUserInfo } from "./chat";
 
 export default async function getExchanges(): Promise<
   (ExchangeInfo & WithKey)[]
@@ -22,16 +23,14 @@ export default async function getExchanges(): Promise<
       const { description, time, likes, authorUid, location, remote, type } =
         d.data() as any;
       return (async () => {
-        const docQ = doc(getFirestore(), "users", authorUid);
-        const userDoc = await getDoc(docQ);
-        const user = userDoc.data();
+        const user = await getUserInfo(authorUid);
         return {
           description,
           time,
           likes,
           type,
           place: { location, remote },
-          author: { pfp: user.pfp, name: user.name, id: authorUid },
+          author: user,
           key: d.id,
         } as ExchangeInfo & WithKey;
       })();

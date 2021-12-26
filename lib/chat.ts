@@ -1,10 +1,12 @@
-import { getAuth } from "firebase/auth";
 import {
   addDoc,
   collection,
+  doc,
+  getDoc,
   getFirestore,
   serverTimestamp,
 } from "firebase/firestore";
+import { User } from "./exchange";
 
 export async function sendMessage(
   formValue: string,
@@ -23,4 +25,11 @@ export async function sendMessage(
       andThen();
     }
   });
+}
+
+export async function getUserInfo(uid: string): Promise<User> {
+  const docQ = doc(getFirestore(), "users", uid);
+  const userDoc = await getDoc(docQ);
+  const user = userDoc.data();
+  return { ...user, id: uid } as User;
 }

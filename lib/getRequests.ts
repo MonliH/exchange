@@ -9,6 +9,7 @@ import {
   orderBy,
 } from "firebase/firestore";
 import { WithKey, ExRequest } from "lib/exchange";
+import { getUserInfo } from "./chat";
 
 export default async function getRequests(): Promise<(ExRequest & WithKey)[]> {
   const dbRef = collection(getFirestore(), "requests");
@@ -20,15 +21,13 @@ export default async function getRequests(): Promise<(ExRequest & WithKey)[]> {
       const { description, time, likes, authorUid, location, remote } =
         d.data() as any;
       return (async () => {
-        const docQ = doc(getFirestore(), "users", authorUid);
-        const userDoc = await getDoc(docQ);
-        const user = userDoc.data();
+        const user = await getUserInfo(authorUid);
         return {
           description,
           time,
           likes,
           place: { location, remote },
-          author: { pfp: user.pfp, name: user.name, id: authorUid },
+          author: user,
           key: d.id,
         } as ExRequest & WithKey;
       })();
