@@ -9,7 +9,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { User } from "lib/exchange";
-import UserView from "./User";
+import UserView, { Profile } from "./User";
 import { FormEvent, useEffect, useRef, useState } from "react";
 import { useCollection } from "react-firebase-hooks/firestore";
 import {
@@ -54,9 +54,8 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
     where("to", "==", toUserId)
   );
 
-  const [chatQuery1, _, error] = useCollection(focusedUser && request1);
+  const [chatQuery1] = useCollection(focusedUser && request1);
   const [chatQuery2] = useCollection(focusedUser && request2);
-  console.log(error);
 
   useEffect(() => {
     if (chatQuery1 !== undefined && chatQuery2 !== undefined) {
@@ -65,6 +64,11 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
         .concat(
           chatQuery2.docs.map((e) => ({ ...e.data(), id: e.id } as Message))
         );
+      messages.sort((a, b) => {
+        const aDate = a ?? new Date();
+        const bDate = b ?? new Date();
+        return aDate - bDate;
+      });
       console.log(messages);
       setMessages(messages);
     }
@@ -80,21 +84,29 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
       date: serverTimestamp(),
       author: currentId,
       to: toUserId,
-    })
-      .then(() => {
-        setFormValue("");
-        dummy.current.scrollIntoView({ behavior: "smooth" });
-      })
-      .catch((e) => {
-        console.log(e);
-      });
+    }).then(() => {
+      setFormValue("");
+      dummy.current.scrollIntoView({ behavior: "smooth" });
+    });
+  };
+
+  const _user = getAuth().currentUser;
+  const currentUser = {
+    name: _user.displayName,
+    pfp: _user.photoURL,
+    id: _user.uid,
   };
 
   return (
     <Flex direction="row" width="100%" p="0" height="100%">
       <VStack height="100%" p="4" flexGrow={1} align="left">
         <Skeleton isLoaded={focusedUser !== undefined} flexShrink={0}>
-          <Box fontWeight="bold">
+          <Box
+            fontWeight="bold"
+            borderBottomColor="gray.200"
+            borderBottomWidth="1px"
+            pb="15px"
+          >
             <UserView
               size={50}
               user={
@@ -103,10 +115,21 @@ export default function Chat({ focusedUser }: { focusedUser: User | null }) {
             />
           </Box>
         </Skeleton>
-        <VStack flexGrow={1}>
+        <VStack flexGrow={1} align="left" spacing={4}>
           {messages &&
             messages.map((m, idx) => {
-              return <Text key={idx}>{m.message}</Text>;
+              const user = m.author === currentId ? currentUser : focusedUser;
+              return (
+                <HStack key={idx}>
+                  <Profile author={user} size={45} />
+                  <Box>
+                    <Text fontSize={14} fontWeight={"bold"}>
+                      {user.name}
+                    </Text>
+                    <Text>{m.message}</Text>
+                  </Box>
+                </HStack>
+              );
             })}
           <span ref={dummy}></span>
         </VStack>

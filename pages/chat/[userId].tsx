@@ -7,6 +7,7 @@ import { doc, getFirestore } from "firebase/firestore";
 import { ProfileCard } from "components/User";
 import GoBack from "components/GoBack";
 import Chat from "components/Chat";
+import Head from "next/head";
 
 function ProfilePage() {
   const router = useRouter();
@@ -24,17 +25,22 @@ function ProfilePage() {
   }
 
   return (
-    <Flex direction="row" height="100%" width="100%">
-      {!user && snapshot && (
-        <>
-          <Text mt="6" fontWeight="bold">
-            Oops! This user doesn{"'"}t exist.
-          </Text>
-          <GoBack />
-        </>
-      )}
-      <Chat focusedUser={user} />
-    </Flex>
+    <>
+      <Head>
+        <title>Chat{user && ` with ${user.name}`}</title>
+      </Head>
+      <Flex direction="row" height="100%" width="100%">
+        {!user && snapshot && (
+          <>
+            <Text mt="6" fontWeight="bold">
+              Oops! This user doesn{"'"}t exist.
+            </Text>
+            <GoBack />
+          </>
+        )}
+        <Chat focusedUser={user} />
+      </Flex>
+    </>
   );
 }
 
